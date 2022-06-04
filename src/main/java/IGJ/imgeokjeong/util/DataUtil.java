@@ -1,0 +1,67 @@
+package IGJ.imgeokjeong.util;
+
+import IGJ.imgeokjeong.office.domain.Machine;
+import IGJ.imgeokjeong.office.domain.Office;
+import org.springframework.beans.factory.annotation.Value;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
+
+public class DataUtil {
+
+    @Value("${csvPath}")
+    private String path;
+
+    public List<Office> getOffices() {
+        File file = new File("/Users/one/Desktop/data/total_data.csv");
+        List<Office> offices = new ArrayList<>();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file, Charset.forName("EUC-KR")));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                String[] tokens = line.split(",");
+
+                String name = tokens[0];
+                String phoneNumber = tokens[1];
+                String streetNameAddress = tokens[2];
+                String lotNumberAddress = tokens[3];
+                String latitude = tokens[4];
+                String longitude = tokens[5];
+
+                List<Machine> machines = new ArrayList<>();
+                if(Integer.parseInt(tokens[6]) != 0)
+                    machines.add(new Machine("트랙터 및 작업기", Integer.parseInt(tokens[6])));
+                if(Integer.parseInt(tokens[7]) != 0)
+                    machines.add(new Machine("경운기 및 작업기", Integer.parseInt(tokens[7])));
+                if(Integer.parseInt(tokens[8]) != 0)
+                    machines.add(new Machine("관리기 및 작업기", Integer.parseInt(tokens[8])));
+                if(Integer.parseInt(tokens[9]) != 0)
+                    machines.add(new Machine("땅속 작물 수확기", Integer.parseInt(tokens[9])));
+                if(Integer.parseInt(tokens[10]) != 0)
+                    machines.add(new Machine("탈곡기 및 정선 작업기", Integer.parseInt(tokens[10])));
+                if(Integer.parseInt(tokens[11]) != 0)
+                    machines.add(new Machine("자주형 파종기", Integer.parseInt(tokens[11])));
+                if(Integer.parseInt(tokens[12]) != 0)
+                    machines.add(new Machine("이앙 작업기", Integer.parseInt(tokens[12])));
+                if(Integer.parseInt(tokens[13]) != 0)
+                    machines.add(new Machine("벼 수확 및 운반 작업기", Integer.parseInt(tokens[13])));
+
+                Office office = new Office(name, phoneNumber, streetNameAddress, lotNumberAddress, latitude, longitude);
+                for (Machine machine : machines)
+                    office.addMachine(machine);
+
+                offices.add(office);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return offices;
+    }
+}
