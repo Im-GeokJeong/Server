@@ -1,11 +1,9 @@
 package IGJ.imgeokjeong.office.controller;
 
-import IGJ.imgeokjeong.errors.reponse.CommonResponse;
+import IGJ.imgeokjeong.errors.response.CommonResponse;
 import IGJ.imgeokjeong.office.service.OfficeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RequestMapping("/api/office")
@@ -17,5 +15,10 @@ public class OfficeController {
     @GetMapping("/list")
     public CommonResponse officeList() {
         return officeService.list();
+    }
+
+    @GetMapping("/{officeId}")
+    public CommonResponse officeDetails(@PathVariable("officeId") Long id) {
+        return officeService.detail(id);
     }
 }

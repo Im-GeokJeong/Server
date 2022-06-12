@@ -1,7 +1,10 @@
 package IGJ.imgeokjeong.office.service;
 
-import IGJ.imgeokjeong.errors.reponse.CommonResponse;
-import IGJ.imgeokjeong.errors.reponse.ResponseService;
+import IGJ.imgeokjeong.errors.exception.NotExistOfficeException;
+import IGJ.imgeokjeong.errors.response.CommonResponse;
+import IGJ.imgeokjeong.errors.response.ResponseService;
+import IGJ.imgeokjeong.office.domain.Office;
+import IGJ.imgeokjeong.office.dto.DetailResponse;
 import IGJ.imgeokjeong.office.repository.OfficeRepository;
 import IGJ.imgeokjeong.util.DataUtil;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +21,12 @@ public class OfficeService {
     @Transactional
     public CommonResponse list() {
         return responseService.getListResponse(officeRepository.findAll());
+    }
+
+    @Transactional
+    public CommonResponse detail(Long id) {
+        Office office = officeRepository.findById(id).orElseThrow(NotExistOfficeException::new);
+        return responseService.getSingleResponse(new DetailResponse(office));
     }
 
     //
