@@ -1,4 +1,4 @@
-package IGJ.imgeokjeong.errors.reponse;
+package IGJ.imgeokjeong.errors.response;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
