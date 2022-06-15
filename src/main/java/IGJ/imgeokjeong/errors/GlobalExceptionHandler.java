@@ -1,6 +1,7 @@
 package IGJ.imgeokjeong.errors;
 
 import IGJ.imgeokjeong.errors.exception.NotExistOfficeException;
+import IGJ.imgeokjeong.errors.exception.NotExistPostException;
 import IGJ.imgeokjeong.errors.response.CommonResponse;
 import IGJ.imgeokjeong.errors.response.ResponseService;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,7 @@ public class GlobalExceptionHandler {
 
     private final ResponseService responseService;
 
-    @ExceptionHandler(NotExistOfficeException.class)
+    @ExceptionHandler({NotExistOfficeException.class, NotExistPostException.class})
     CommonResponse handleBadRequestException(Exception ex) {
         return handleBadRequest(ex);
     }
