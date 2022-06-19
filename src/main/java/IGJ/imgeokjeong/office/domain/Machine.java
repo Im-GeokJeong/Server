@@ -19,7 +19,7 @@ public class Machine {
 
     private int count;
 
-    // 사진은 추후에 추가 예정 - 이름으로 S3에 저장된 사진을 가져와서 넣어주는 방식으로 구현
+    @Lob
     private String picture;
 
     @JsonIgnore
@@ -27,9 +27,10 @@ public class Machine {
     @JoinColumn(name = "office_id")
     private Office office;
 
-    public Machine(String name, int count) {
+    public Machine(String name, int count, String picture) {
         this.name = name;
         this.count = count;
+        this.picture = picture;
     }
 
     public void setOffice(Office office) {
