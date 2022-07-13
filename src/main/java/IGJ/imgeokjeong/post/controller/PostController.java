@@ -61,7 +61,7 @@ public class PostController {
     }
 
     @Operation(summary = "PIN number authentication", description = "수정 & 삭제를 위한 4자리 핀번호 인증")
-    @GetMapping("/auth")
+    @PostMapping("/auth")
     public CommonResponse authorize(@RequestBody @Valid AuthorizeRequest request) {
         return postService.authorize(request);
     }
