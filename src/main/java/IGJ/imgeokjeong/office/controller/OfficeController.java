@@ -24,4 +24,10 @@ public class OfficeController {
     public CommonResponse officeDetails(@PathVariable("officeId") Long id) {
         return officeService.detail(id);
     }
+
+    @Operation(summary = "get machine list needed for crop", description = "농작물에 필요한 농기계 리스트")
+    @GetMapping("/machine/{cropName}")
+    public CommonResponse machineForCropList(@PathVariable("cropName") String cropName) {
+        return officeService.neededForCropList(cropName);
+    }
 }

@@ -70,7 +70,7 @@ public class DataUtil {
         return offices;
     }
 
-    private void setCropMap() {
+    public void setCropMap() {
         cropMap.put("트랙터 및 작업기", Arrays.asList("토양", "경작", "쟁기","쌀", "보리", "옥수수", "견과류"));
         cropMap.put("경운기 및 작업기", Arrays.asList("고구마", "감자", "마늘", "양파", "생강", "작약", "땅콩"));
         cropMap.put("관리기 및 작업기", Arrays.asList("제초", "구굴", "휴립", "비닐피복", "벼", "옥수수"));

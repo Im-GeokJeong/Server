@@ -11,12 +11,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @RequiredArgsConstructor
 @Service
 public class OfficeService {
 
     private final OfficeRepository officeRepository;
     private final ResponseService responseService;
+
+    private final DataUtil dataUtil = new DataUtil();
 
     @Transactional
     public CommonResponse list() {
@@ -29,8 +35,21 @@ public class OfficeService {
         return responseService.getSingleResponse(new DetailResponse(office));
     }
 
+    @Transactional
+    public CommonResponse neededForCropList(String cropName) {
+        dataUtil.setCropMap();
+        Map<String, List<String>> cropMap = dataUtil.getCropMap();
+
+        List<String> machineList = new ArrayList<>();
+
+        for (Map.Entry<String, List<String>> entry : cropMap.entrySet())
+            if (entry.getValue().contains(cropName)) machineList.add(entry.getKey());
+
+        return responseService.getListResponse(machineList);
+    }
+
     //
-    // private methode
+    // private method
     //
 
     private void setData() {
